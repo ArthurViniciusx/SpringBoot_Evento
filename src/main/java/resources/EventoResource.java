@@ -12,14 +12,15 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import models.Evento;
-import repositorys.EventoRepository;
+//import repositorys.EventoRepository;
+import repositorys.EventoRepositorys;
 
 @RestController
 @RequestMapping("/evento")
 public class EventoResource {
 
 	@Autowired
-	private EventoRepository er;
+	private EventoRepositorys er;
 
 	@GetMapping(produces = "aplication/json")
 	public @ResponseBody Iterable<Evento> listaEventos() {

@@ -6,19 +6,15 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 
 @Entity
-//@Table(name= "Evento")
-public class Evento {
-//implements Serializable {
-
-	// private static final long serialVersionUID = 1L;
+public class Evento implements Serializable {
+	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private long codigo;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer codigo;
 
 	@NotBlank
 	private String nome;
@@ -29,11 +25,25 @@ public class Evento {
 	@NotBlank
 	private String horario;
 
+	public Evento() {
+
+	}
+
+	public Evento(Integer codigo, @NotBlank String nome, @NotBlank String local, @NotBlank String data,
+			@NotBlank String horario) {
+		super();
+		this.codigo = codigo;
+		this.nome = nome;
+		this.local = local;
+		this.data = data;
+		this.horario = horario;
+	}
+
 	public long getCodigo() {
 		return codigo;
 	}
 
-	public void setCodigo(long codigo) {
+	public void setCodigo(Integer codigo) {
 		this.codigo = codigo;
 	}
 
@@ -67,6 +77,31 @@ public class Evento {
 
 	public void setHorario(String horario) {
 		this.horario = horario;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((codigo == null) ? 0 : codigo.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Evento other = (Evento) obj;
+		if (codigo == null) {
+			if (other.codigo != null)
+				return false;
+		} else if (!codigo.equals(other.codigo))
+			return false;
+		return true;
 	}
 
 }
